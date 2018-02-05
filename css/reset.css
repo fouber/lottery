@@ -1,0 +1,57 @@
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre,
+form, fieldset, input, textarea, p, blockquote, th, td {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-weight: normal;
+    font-style: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6, i {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 100%;
+}
+
+q:before, q:after {
+    content:'';
+}
+
+abbr, acronym {
+    border: 0;
+}
+
+body {
+    font-family: "Hiragino Sans GB","DroidSansFallback","Microsoft YaHei","微软雅黑",arial,simsun;
+    color: #333;
+    line-height: 22px;
+    font-size: 16px;
+}
