@@ -174,22 +174,27 @@
             return html.join('');
         };
         var lottery = function(count){
-            var total = member.length;
-            var ret = [];
             var list = canvas.getElementsByTagName('a');
-            var color = '#' + ('00000' + Math.floor(Math.random() * 0xffffff)).slice(-6);
             var color = 'yellow';
-            for(var i = 0; i < count; i++){
-                do {
-                    var id = Math.ceil(Math.random() * total);
-                    if(member[id]){
-                        var key = getKey(member[id]);
-                    }
-                } while(choosed[key]);
-                choosed[key] = 1;
-                ret.push(member[id].name + '<br/>' + member[id].phone);
-                list[id].style.color = color;
-            }
+            var ret = member
+                .filter(function(m, index){
+                    m.index = index;
+                    return !choosed[getKey(m)];
+                })
+                .map(function(m){
+                    return Object.assign({
+                      score: Math.random()
+                    }, m);
+                })
+                .sort(function(a, b){
+                    return a.score - b.score;
+                })
+                .slice(0, count)
+                .map(function(m){
+                  choosed[getKey(m)] = 1;
+                  list[m.index].style.color = color;
+                  return m.name + '<br/>' + m.phone;
+                });
             localStorage.setItem('choosed', JSON.stringify(choosed));
             return ret;
         };

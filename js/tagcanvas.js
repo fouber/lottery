@@ -1385,7 +1385,6 @@ function TagCanvas(cid,lctr,opt) {
       ['touchcancel', TouchUp],
       ['touchmove', TouchMove]
     ];
-    debugger;
     if(this.dragControl) {
       handlers[cid].push(['mousedown', MouseDown]);
       handlers[cid].push(['selectstart', Nop]);
