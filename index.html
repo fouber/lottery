@@ -238,13 +238,16 @@
                     if(this.running){
                         TagCanvas.SetSpeed('myCanvas', speed());
                         var ret = lottery(this.selected);
+                        if (ret.length === 0) {
+                            $('#result').css('display', 'block').html('<span>已抽完</span>');
+                            return
+                        }
                         $('#result').css('display', 'block').html('<span>' + ret.join('</span><span>') + '</span>');
                         TagCanvas.Reload('myCanvas');
                         setTimeout(function(){
                             localStorage.setItem(new Date().toString(), JSON.stringify(ret));
                             $('#main').addClass('mask');
                         }, 300);
-                        console.log(ret);
                     } else {
                         $('#result').css('display', 'none');
                         $('#main').removeClass('mask');
