@@ -129,25 +129,34 @@
             -webkit-transition: all 1s;
             transition: all 1s;
         }
+        .result-btn {
+            margin-top: 20px;
+            text-align: right;
+            margin-right: 30px;
+        }
     </style>
 </head>
 <body>
-<div id="main" class="wall"></div>
-<div id="result" class="result"></div>
+<div id="main" class="wall">
+    <div class="result-btn">
+       <a href="./result.html" target="_blank">获奖名单</a>
+    </div>
+</div>
+<div id="result" class="result">
+</div>
 <div id="tools" class="tools">
-    <button
-        v-on="click: onClick($value)"
+     <button
+        v-for="value in btns"
+        @click="onClick(value)"
         class="pure-button"
-        v-class="button-error: selected == $value"
-        v-repeat="btns">{{$value}}</button>
+        :class="{ 'button-error': selected == value}"
+       >{{value}}</button>
     <button
-        class="pure-button"
-        v-on="click: toggle"
-        v-class="
-                button-secondary: !running,
-                button-success: running
-            ">{{running?'停!':'开始'}}</button>
-    <button class="pure-button button-warning" v-on="click: reset">重置</button>
+       class="pure-button"
+       @click="toggle"
+       :class="{'button-secondary': !running,
+               'button-success': running}">{{running?'停!':'开始'}}</button>
+    <button class="pure-button button-warning" @click="reset">重置</button>
 </div>
 <script type="text/javascript" src="js/zepto.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
@@ -194,7 +203,7 @@
                 .map(function(m){
                   choosed[getKey(m)] = 1;
                   list[m.index].style.color = color;
-                  return m.name + '<br/>' + m.phone;
+                  return m.name + '<br/>' + m.phone; 
                 });
             localStorage.setItem('choosed', JSON.stringify(choosed));
             return ret;
@@ -213,7 +222,7 @@
                     30, 10, 5, 2, 1
                 ]
             },
-            ready: function(){
+            mounted () {
                 canvas.innerHTML = createHTML();
                 TagCanvas.Start('myCanvas', '', {
                     textColour: null,
