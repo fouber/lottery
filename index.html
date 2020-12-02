@@ -4,7 +4,7 @@
     <meta name="screen-orientation" content="portrait">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0"/>
-    <title>年会抽奖小程序</title>
+    <title>TAAI X ICPAI 抽獎</title>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/wall.css">
     <style type="text/css">
@@ -139,7 +139,7 @@
 <body>
 <div id="main" class="wall">
     <div class="result-btn">
-       <a href="./result.html" target="_blank">获奖名单</a>
+       <a href="./result.html" target="_blank">獲獎名單</a>
     </div>
 </div>
 <div id="result" class="result">
@@ -155,7 +155,7 @@
        class="pure-button"
        @click="toggle"
        :class="{'button-secondary': !running,
-               'button-success': running}">{{running?'停!':'开始'}}</button>
+               'button-success': running}">{{running?'停!':'開始'}}</button>
     <button class="pure-button button-warning" @click="reset">重置</button>
 </div>
 <script type="text/javascript" src="js/zepto.js"></script>
@@ -233,7 +233,7 @@
             },
             methods: {
                 reset: function(){
-                    if(confirm('确定要重置么？所有之前的抽奖历史将被清除！')){
+                    if(confirm('確定要重製嗎？所有之前的抽獎歷史將被清除！')){
                         localStorage.clear();
                         location.reload(true);
                     }
