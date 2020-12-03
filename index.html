@@ -157,13 +157,62 @@
        :class="{'button-secondary': !running,
                'button-success': running}">{{running?'停!':'開始'}}</button>
     <button class="pure-button button-warning" @click="reset">重置</button>
+    <input type="file" id="file-input">
+    <script>
+        const member = [];
+        let workbook = null;
+        function readWorkbookFromLocalFile(file, callback) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = e.target.result;
+                workbook = XLSX.read(data, {type: 'string'});
+                if(callback) callback(workbook);
+            };
+            reader.readAsText(file);
+        }
+        document.getElementById("file-input").addEventListener('change', function(){
+            readWorkbookFromLocalFile(this.files[0], ()=>{
+                let excel = workbook['Sheets']['Sheet1'];
+                let data = [];
+                let headers = {};
+                Object.keys(excel).forEach(k => {
+                    // 如 A11 中的 A
+                    let col = k.substring(0, 1);
+                    // 如 A11 中的 11
+                    let row = parseInt(k.substring(1));
+                    // 當前單元格的值
+                    let value = excel[k].v;
+                    // 儲存欄位名
+                    if (row === 1) {
+                    headers[col] = value;
+                    return;
+                    }
+                    // 解析成 JSON
+                    if (!data[row]) {
+                    data[row] = {};
+                    }
+                    data[row][headers[col]] = value;
+                    });
+                data.forEach(d=>{
+                    member.push({
+                        "phone":
+                            d['What\'s your ID/Passport Number?'].slice(0,1)+"***"+d['What\'s your ID/Passport Number?'].slice(-4),
+                        "name": d['What\'s your name?']
+
+                    });
+                });
+                start();
+            });
+        });
+
+    </script>
 </div>
 <script type="text/javascript" src="js/zepto.js"></script>
 <script type="text/javascript" src="js/vue.js"></script>
 <script type="text/javascript" src="js/tagcanvas.js"></script>
-<script type="text/javascript" src="js/member.js"></script>
+<script type="text/javascript" src="js/xlsx.full.min.js"></script>
 <script type="text/javascript">
-    (function(){
+    let start = function(){
         var choosed = JSON.parse(localStorage.getItem('choosed')) || {};
         console.log(choosed);
         var speed = function(){
@@ -266,7 +315,7 @@
                 }
             }
         });
-    })();
+    }
 </script>
 </body>
 </html>
